@@ -1,20 +1,64 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> Geolocation </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-subtitle>Get coordonnées </ion-card-subtitle>
+      <ion-card-title>Géolocalisation</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        Cliquez pour obtenir l'emplacement de votre appareil en latitude et
+        longitude. Permettre à l'application les autorisations requises une fois
+        demandées.
+      </p>
+      <ion-row *ngIf="coords && coords.latitude">
+        <ion-text class="coords">Ma Latitude : {{ coords.latitude }}</ion-text>
+      </ion-row>
+      <ion-row *ngIf="coords && coords.longitude">
+        <ion-text class="coords"
+          >Ma Longitude : {{ coords.longitude }}</ion-text
+        >
+      </ion-row>
+      <ion-button color="dark" (click)="locate()" expand="full">Me Localiser</ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-subtitle>Get Adresse</ion-card-subtitle>
+      <ion-card-title>Géocodage inversé</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Convertissez votre position actuelle en adresse</p>
+      <ion-row *ngIf="address">
+        <ion-text class="coords"
+          >My Address : {{ address.subLocality ? address.subLocality + ", " : ""
+          }} {{ address.locality ? address.locality + ", " : "" }}{{
+          address.administrativeArea ? address.administrativeArea + ", " : "" }}
+          {{ address.postalCode ? address.postalCode + ", " : "" }}{{
+          address.countryName ? address.countryName : "" }}
+        </ion-text>
+      </ion-row>
+      <ion-button color="dark" (click)="reverseGeocode()" expand="full"
+        >Mon Adresse</ion-button
+      >
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-subtitle>Open Maps </ion-card-subtitle>
+      <ion-card-title>Maps</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        Cliquez pour ouvrir la map avec les coordonnée
+      </p>
+      
+      <ion-button color="dark" (click)="naveMe(this.address)" expand="full">itinéraire</ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
